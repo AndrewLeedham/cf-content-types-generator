@@ -5,7 +5,7 @@ import {pipe} from 'lodash/fp';
 export const moduleName = (name: string): string => {
     const removeSpace = (input: string): string => input.replace(/\s/g, '');
     const replaceDash = (input: string): string => input.replace(/-/g, '__');
-    const addPrefix = (input: string): string => input.startsWith('Type') ? input : `Type${input}`;
+    const addPrefix = (input: string): string => input.endsWith('CMSEntry') ? input : `${input}CMSEntry`;
     return pipe([replaceDash, upperFirst, addPrefix, removeSpace])(name);
 };
 
