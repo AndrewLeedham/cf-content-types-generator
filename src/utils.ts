@@ -1,5 +1,5 @@
 import {FieldItem, FieldValidation} from 'contentful';
-import {upperFirst} from 'lodash';
+import {camelCase, upperFirst} from 'lodash';
 import {pipe} from 'lodash/fp';
 
 export const moduleName = (name: string): string => {
@@ -9,7 +9,16 @@ export const moduleName = (name: string): string => {
     return pipe([replaceDash, upperFirst, addPrefix, removeSpace])(name);
 };
 
+export const moduleManagementName = (name: string): string => {
+    const removeSpace = (input: string): string => input.replace(/\s/g, '');
+    const replaceDash = (input: string): string => input.replace(/-/g, '__');
+    const addPrefix = (input: string): string => input.endsWith('CMSManagementEntry') ? input : `${input}CMSManagementEntry`;
+    return pipe([replaceDash, upperFirst, addPrefix, removeSpace])(name);
+};
+
 export const moduleFieldsName = (name: string): string => moduleName(name) + 'Fields';
+
+export const moduleTypeIdName = (name: string): string => camelCase(moduleName(name).replace(/CMSEntry$/, '')) + 'TypeId';
 
 type WithValidations = Pick<FieldItem, 'validations'>;
 

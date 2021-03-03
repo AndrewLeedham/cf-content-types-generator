@@ -4,7 +4,7 @@ import {renderUnionType} from './render-union-type';
 
 const linkContentType = (field: Pick<Field, 'id' | 'validations'>): string => {
     const validations = linkContentTypeValidations(field);
-    return validations?.length > 0 ? renderUnionType(validations.map(moduleName)) : 'CMSEntry<string, Record<string, any>>';
+    return validations?.length > 0 ? renderUnionType(validations.map(moduleName)) : 'CMSEntries';
 };
 
 export const renderPropLink = (field: Pick<Field, 'id' | 'validations' | 'linkType'>) => {
